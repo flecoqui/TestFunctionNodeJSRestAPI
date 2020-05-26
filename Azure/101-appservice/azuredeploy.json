@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
     "namePrefix": {
@@ -69,7 +69,7 @@
       },
       "kind": "linux",
       "name": "[variables('appServicePlanName')]",
-      "apiVersion": "2016-09-01",
+      "apiVersion": "2018-02-01",
       "location": "[resourceGroup().location]",
       "properties": {
         "perSiteScaling": false,
@@ -87,7 +87,7 @@
       "type": "Microsoft.Web/sites",
       "kind": "app,linux",
       "name": "[variables('webAppName')]",
-      "apiVersion": "2016-03-01",
+      "apiVersion": "2018-02-01",
       "location": "[resourceGroup().location]",
       "properties": {
         "enabled": true,
@@ -127,7 +127,7 @@
       "resources": [
         {
           "type": "config",
-          "apiVersion": "2016-08-01",
+          "apiVersion": "2018-02-01",
           "name": "web",
           "location": "[resourceGroup().location]",
           "dependsOn": [
@@ -198,7 +198,7 @@
           }
         },
         {
-          "apiVersion": "2016-08-01",
+          "apiVersion": "2018-02-01",
           "name": "web",
           "type": "sourcecontrols",
           "dependsOn": [
