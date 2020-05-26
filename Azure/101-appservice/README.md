@@ -1,9 +1,9 @@
 # Deployment of a REST API  hosted on Azure App Service
 
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fflecoqui%2FTestRESTAPIServices%2Fmaster%2FAzure%2F101-appservice%2Fazuredeploy.json" target="_blank">
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fflecoqui%2FTestFunctionNodeJSRestAPI%2Fmaster%2FAzure%2F101-appservice%2Fazuredeploy.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
-<a href="http://armviz.io/#/?load=https%3A%2F%2Fraw.githubusercontent.com%2Fflecoqui%2FTestRESTAPIServices%2Fmaster%2FAzure%2F101-appservice%2Fazuredeploy.json" target="_blank">
+<a href="http://armviz.io/#/?load=https%3A%2F%2Fraw.githubusercontent.com%2Fflecoqui%2FTestFunctionNodeJSRestAPI%2Fmaster%2FAzure%2F101-appservice%2Fazuredeploy.json" target="_blank">
     <img src="http://armviz.io/visualizebutton.png"/>
 </a>
 
@@ -44,9 +44,9 @@ First you need to create the resource group which will be associated with this d
 
 For instance:
 
-    azure group create TestRESTAPIServicesrg eastus2
+    azure group create TestFunctionNodeJSRestAPIrg eastus2
 
-    az group create -n TestRESTAPIServicesrg -l eastus2
+    az group create -n TestFunctionNodeJSRestAPIrg -l eastus2
 
 ## DEPLOY THE SERVICES:
 
@@ -59,9 +59,9 @@ You can deploy Azure Function, Azure App Service and Virtual Machine using ARM (
 
 For instance:
 
-    azure group deployment create TestRESTAPIServicesrg TestRESTAPIServicesdep -f azuredeploy.json -e azuredeploy.parameters.json -vv
+    azure group deployment create TestFunctionNodeJSRestAPIrg TestFunctionNodeJSRestAPIdep -f azuredeploy.json -e azuredeploy.parameters.json -vv
 
-    az group deployment create -g TestRESTAPIServicesrg -n TestRESTAPIServicesdep --template-file azuredeploy.json --parameter @azuredeploy.parameters.json --verbose -o json
+    az group deployment create -g TestFunctionNodeJSRestAPIrg -n TestFunctionNodeJSRestAPIdep --template-file azuredeploy.json --parameter @azuredeploy.parameters.json --verbose -o json
 
 
 When you deploy the service you can define the following parameters:</p>
@@ -127,9 +127,9 @@ where the file data.json contains the following lines: </p>
 
 For instance:
 
-    azure group delete TestRESTAPIServicesrg eastus2
+    azure group delete TestFunctionNodeJSRestAPIrg eastus2
 
-    az group delete -n TestRESTAPIServicesrg 
+    az group delete -n TestFunctionNodeJSRestAPIrg 
 
 
 
