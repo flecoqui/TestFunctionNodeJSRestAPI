@@ -263,6 +263,8 @@ app.get('/logout', function(req, res){
     res.redirect(config.destroySessionUrl);
   });
 });
-
+log.info('########################################Starting: port: ' );
+log.info('########################################Starting: port: ' + process.env.PORT  );
+log.info('########################################Starting: port: '  + '8081');
 app.listen(process.env.PORT || 8081);
 
