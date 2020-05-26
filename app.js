@@ -263,6 +263,9 @@ app.get('/logout', function(req, res){
     res.redirect(config.destroySessionUrl);
   });
 });
+console.log('########################################Starting: port: ');
+console.log('env', process.env);
+console.log('The value of PORT is:', process.env.PORT);
 log.info('########################################Starting: port: ' );
 log.info('########################################Starting: port: ' + process.env.PORT  );
 log.info('########################################Starting: port: '  + '8081');
