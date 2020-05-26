@@ -48,7 +48,8 @@ catch(err)
 }
 
 })
-
+var port = normalizePort(process.env.PORT || 3000);
+app.set('port',port);
 // Export server for testing.
-var server = app.listen(3000);
+var server = app.listen(port);
 module.exports = server;

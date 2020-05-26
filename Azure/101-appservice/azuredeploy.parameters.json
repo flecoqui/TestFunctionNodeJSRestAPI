@@ -13,6 +13,9 @@
     },
     "repoBranch": {
       "value": "master"
+    },
+    "repoAppPath": {
+      "value": "src/TestWebApp"
     }
   }
 }

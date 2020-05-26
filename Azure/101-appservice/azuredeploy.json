@@ -44,6 +44,13 @@
       "metadata": {
         "description": "The branch of the GitHub repository to use."
       }
+    },
+    "repoAppPath": {
+      "type": "string",
+      "defaultValue": "src/TestWebApp",
+      "metadata": {
+        "description": "The path of the Azure App Service code on github."
+      }
     }
 
   },
@@ -60,14 +67,17 @@
         "name": "[toLower(parameters('webAppSku'))]",
         "capacity": 1
       },
-      "kind": "app",
+      "kind": "linux",
       "name": "[variables('appServicePlanName')]",
       "apiVersion": "2016-09-01",
       "location": "[resourceGroup().location]",
       "properties": {
-        "name": "[variables('appServicePlanName')]",
         "perSiteScaling": false,
-        "reserved": false,
+        "maximumElasticWorkerCount": 1,
+        "isSpot": false,
+        "reserved": true,
+        "isXenon": false,
+        "hyperV": false,
         "targetWorkerCount": 0,
         "targetWorkerSizeId": 0
       },
@@ -75,34 +85,44 @@
     },
     {
       "type": "Microsoft.Web/sites",
-      "kind": "WebApp",
+      "kind": "app,linux",
       "name": "[variables('webAppName')]",
       "apiVersion": "2016-03-01",
       "location": "[resourceGroup().location]",
       "properties": {
-        "name": "[variables('webAppName')]",
-        "hostNames": [
-          "[concat(variables('webAppName'),'.azurewebsites.net')]"
-        ],
-        "enabledHostNames": [
-          "[concat(variables('webAppName'),'.azurewebsites.net')]",
-          "[concat(variables('webAppName'),'.scm.azurewebsites.net')]"
-        ],
+        "enabled": true,
         "hostNameSslStates": [
-          {
-            "name": "[concat(variables('webAppName'),'.azurewebsites.net')]",
-            "sslState": 0,
-            "thumbprint": null,
-            "ipBasedSslState": 0
-          },
-          {
-            "name": "[concat(variables('webAppName'),'.scm.azurewebsites.net')]",
-            "sslState": 0,
-            "thumbprint": null,
-            "ipBasedSslState": 0
-          }
+            {
+                "name": "[concat(variables('webAppName'),'.azurewebsites.net')]",
+                "sslState": "Disabled",
+                "hostType": "Standard"
+            },
+            {
+                "name": "[concat(variables('webAppName'),'.scm.azurewebsites.net')]",
+                "sslState": "Disabled",
+                "hostType": "Repository"
+            }
         ],
-        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]"
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]",
+        "siteConfig": {
+          "appSettings": [
+            {
+              "name": "Project",
+              "value": "[parameters('repoAppPath')]"
+            }
+          ]
+        },
+        "reserved": true,
+        "isXenon": false,
+        "hyperV": false,
+        "scmSiteAlsoStopped": false,
+        "clientAffinityEnabled": true,
+        "clientCertEnabled": false,
+        "hostNamesDisabled": false,
+        "containerSize": 0,
+        "dailyMemoryTimeQuota": 0,
+        "httpsOnly": false,
+        "redundancyMode": "None"
       },
       "resources": [
         {
@@ -126,19 +146,51 @@
               "index.php",
               "hostingstart.html"
             ],
-            "netFrameworkVersion": "v4.6",
-            "phpVersion": "5.6",
+            "netFrameworkVersion": "v4.0",
+            "linuxFxVersion": "NODE|lts",
             "requestTracingEnabled": false,
             "remoteDebuggingEnabled": false,
-            "httpLoggingEnabled": false,
+            "httpLoggingEnabled": true,
             "logsDirectorySizeLimit": 35,
             "detailedErrorLoggingEnabled": false,
+            "publishingUsername": "$TestWebNodeApp",
+            "scmType": "None",
             "use32BitWorkerProcess": true,
             "webSocketsEnabled": false,
-            "alwaysOn": true,
+            "alwaysOn": false,
             "managedPipelineMode": "Integrated",
+            "virtualApplications": [
+                {
+                    "virtualPath": "/",
+                    "physicalPath": "site\\wwwroot",
+                    "preloadEnabled": false
+                }
+            ],
             "loadBalancing": "LeastRequests",
-            "siteAuthEnabled": false,
+            "experiments": {
+                "rampUpRules": []
+            },
+            "autoHealEnabled": false,
+            "localMySqlEnabled": false,
+            "ipSecurityRestrictions": [
+                {
+                    "ipAddress": "Any",
+                    "action": "Allow",
+                    "priority": 1,
+                    "name": "Allow all",
+                    "description": "Allow all access"
+                }
+            ],
+            "scmIpSecurityRestrictions": [
+                {
+                    "ipAddress": "Any",
+                    "action": "Allow",
+                    "priority": 1,
+                    "name": "Allow all",
+                    "description": "Allow all access"
+                }
+            ],
+            "scmIpSecurityRestrictionsUseMain": false,
             "http20Enabled": false,
             "minTlsVersion": "1.2",
             "ftpsState": "AllAllowed",

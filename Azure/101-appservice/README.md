@@ -59,15 +59,16 @@ You can deploy Azure Function, Azure App Service and Virtual Machine using ARM (
 
 For instance:
 
-    azure group deployment create TestFunctionNodeJSRestAPIrg TestFunctionNodeJSRestAPIdep -f azuredeploy.json -e azuredeploy.parameters.json -vv
+    azure group create deployment TestFunctionNodeJSRestAPIrg TestFunctionNodeJSRestAPIdep -f azuredeploy.json -e azuredeploy.parameters.json -vv
 
-    az group deployment create -g TestFunctionNodeJSRestAPIrg -n TestFunctionNodeJSRestAPIdep --template-file azuredeploy.json --parameter @azuredeploy.parameters.json --verbose -o json
+    az group create deployment -g TestFunctionNodeJSRestAPIrg -n TestFunctionNodeJSRestAPIdep --template-file azuredeploy.json --parameter @azuredeploy.parameters.json --verbose -o json
 
 
 When you deploy the service you can define the following parameters:</p>
 * **namePrefix:** The name prefix which will be used for all the services deployed with this ARM Template</p>
 * **WebAppSku:** The WebApp Sku Capacity, by defualt F1</p>
 * **repoURL:** The github repository url</p>
+* **repoAppPath:** The github relative path to the App Service to deploy</p>
 * **branch:** The branch name in the repository</p>
 
 The services has been deployed with 2 command lines.
