@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Error</title>
+	</head>
+	<body>
+		<% if (!user) { %>
+			<p>
+			<h1><% message %></h1>
+			</p>
+		<% } else { %>
+			<p>
+				<h1><% message %></h1>
+				</p>
+			<% } %>
+		<%- body %>
+	</body>
+</html>
