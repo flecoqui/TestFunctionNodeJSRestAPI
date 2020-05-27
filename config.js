@@ -1,9 +1,14 @@
-var configClientID = process.env.CLIENT_ID || 'f0987f99-8aa7-47c7-9626-ec45413764b8';
-var configClientSecret = process.env.CLIENT_SECRET || '.5.4RtCssjs93CnH~dDPZxFnC~_7X20pLY';
-var configTenantName = process.env.TENANT_NAME || 'M365x175592';
-var configRedirectUrl = process.env.REDIRECT_URL || 'https://testrestweb.azurewebsites.net/signin-oidc';
-var configSignOutUrl = process.env.SIGNOUT_URL || 'https://testrestweb.azurewebsites.net/';
+//var configClientID = process.env.CLIENT_ID || 'f0987f99-8aa7-47c7-9626-ec45413764b8';
+//var configClientSecret = process.env.CLIENT_SECRET || '.5.4RtCssjs93CnH~dDPZxFnC~_7X20pLY';
+//var configTenantName = process.env.TENANT_NAME || 'M365x175592';
+//var configRedirectUrl = process.env.REDIRECT_URL || 'https://testrestweb.azurewebsites.net/signin-oidc';
+//var configSignOutUrl = process.env.SIGNOUT_URL || 'https://testrestweb.azurewebsites.net/';
 
+var configClientID = process.env.CLIENT_ID || '';
+var configClientSecret = process.env.CLIENT_SECRET || '';
+var configTenantName = process.env.TENANT_NAME || '';
+var configRedirectUrl = process.env.REDIRECT_URL || '';
+var configSignOutUrl = process.env.SIGNOUT_URL || '';
 
 exports.creds = {
   // Required
