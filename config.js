@@ -1,15 +1,23 @@
+var configClientID = process.env.CLIENT_ID || 'f0987f99-8aa7-47c7-9626-ec45413764b8';
+var configClientSecret = process.env.CLIENT_SECRET || '.5.4RtCssjs93CnH~dDPZxFnC~_7X20pLY';
+var configTenantName = process.env.TENANT_NAME || 'M365x175592';
+var configRedirectUrl = process.env.REDIRECT_URL || 'https://testrestweb.azurewebsites.net/signin-oidc';
+var configSignOutUrl = process.env.SIGNOUT_URL || 'https://testrestweb.azurewebsites.net/';
+
+
 exports.creds = {
   // Required
-  identityMetadata: 'https://login.microsoftonline.com/M365x175592.onmicrosoft.com/v2.0/.well-known/openid-configuration', 
-  // or equivalently: 'https://login.microsoftonline.com/<tenant_guid>/v2.0/.well-known/openid-configuration'
+//  identityMetadata: 'https://login.microsoftonline.com/M365x175592.onmicrosoft.com/v2.0/.well-known/openid-configuration', 
+identityMetadata: 'https://login.microsoftonline.com/' + configTenantName + '.onmicrosoft.com/v2.0/.well-known/openid-configuration', 
+// or equivalently: 'https://login.microsoftonline.com/<tenant_guid>/v2.0/.well-known/openid-configuration'
   //
   // or you can use the common endpoint
   // 'https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration'
   // To use the common endpoint, you have to either turn `validateIssuer` off, or provide the `issuer` value.
 
   // Required, the client ID of your app in AAD  
-  clientID: 'f0987f99-8aa7-47c7-9626-ec45413764b8',
-
+  //clientID: 'f0987f99-8aa7-47c7-9626-ec45413764b8',
+  clientID: configClientID,
   // Required, must be 'code', 'code id_token', 'id_token code' or 'id_token'
   // If you want to get access_token, you must use 'code', 'code id_token' or 'id_token code' 
   responseType: 'code id_token', 
@@ -18,14 +26,16 @@ exports.creds = {
   responseMode: 'form_post', 
 
   // Required, the reply URL registered in AAD for your app
-  redirectUrl: 'https://testrestweb.azurewebsites.net/signin-oidc', 
+//  redirectUrl: 'https://testrestweb.azurewebsites.net/signin-oidc', 
+  redirectUrl: configRedirectUrl, 
 
   // Required if we use http for redirectUrl
   allowHttpForRedirectUrl: true,
 
   // Required if `responseType` is 'code', 'id_token code' or 'code id_token'. 
   // If app key contains '\', replace it with '\\'.
-  clientSecret: '.5.4RtCssjs93CnH~dDPZxFnC~_7X20pLY', 
+//  clientSecret: '.5.4RtCssjs93CnH~dDPZxFnC~_7X20pLY', 
+  clientSecret: configClientSecret, 
 
   // Required to set to false if you don't want to validate issuer
   validateIssuer: false,
@@ -70,7 +80,8 @@ exports.creds = {
 };
 
 // The url you need to go to destroy the session with AAD
-exports.destroySessionUrl = 'https://login.microsoftonline.com/common/oauth2/logout?post_logout_redirect_uri=https://testrestweb.azurewebsites.net';
+//exports.destroySessionUrl = 'https://login.microsoftonline.com/common/oauth2/logout?post_logout_redirect_uri=https://testrestweb.azurewebsites.net';
+exports.destroySessionUrl = 'https://login.microsoftonline.com/common/oauth2/logout?post_logout_redirect_uri=' + configSignOutUrl;
 
 // If you want to use the mongoDB session store for session middleware, set to true; otherwise we will use the default
 // session store provided by express-session.
